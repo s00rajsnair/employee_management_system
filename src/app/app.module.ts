@@ -13,6 +13,22 @@ import { AddemployeeComponent } from './addemployee/addemployee.component';
 import { RemoveemployeeComponent } from './removeemployee/removeemployee.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { ReactiveFormsModule } from "@Angular/forms";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAhIFSS3tBfXXkSa8zyIsbWNe-dp54v1vA",
+  authDomain: "employee-management-50181.firebaseapp.com",
+  projectId: "employee-management-50181",
+  storageBucket: "employee-management-50181.appspot.com",
+  messagingSenderId: "988150774370",
+  appId: "1:988150774370:web:fb06d60546f65538176f3b"
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +44,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatSliderModule,
     FormsModule,
     CustomMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule // storage
   ],
   providers: [],
   bootstrap: [AppComponent]

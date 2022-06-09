@@ -1,7 +1,10 @@
 import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee.service';
 import { Router } from '@angular/router'
+import { EmployeeData } from '../employee_data';
+import { FormControl, FormGroup } from "@Angular/forms";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
 @Component({
@@ -17,20 +20,17 @@ export class AddemployeeComponent implements OnInit {
   address = ""
   phone = ""
   new_employee: any = []
-  employees_data: any = []
+  employees_data = EmployeeData
 
 
-  constructor(private _employeeService: EmployeeService, public router:Router) { }
+  constructor(public router:Router, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
-    this._employeeService.getAllEmployees().subscribe(data => this.employees_data = data)
   }
 
   addNewEmployee() {
     this.new_employee = { "id": this.id, "name": this.name, "address": this.address, "phone": this.phone }
-    console.log(this.employees_data)
-    var new_employee_data =  this.employees_data.push(this.new_employee)
-    console.log(new_employee_data)
+    this.firestore.collection('employees').add(this.new_employee).then(res=>console.log(res)).catch(e=>console.log(e));
     alert("Added new Employee")
     this.router.navigate(["dashboard"])
 
